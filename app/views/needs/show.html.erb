@@ -1,0 +1,38 @@
+<article>
+  <h1>#<%= need.need_api_id %></h1>
+
+  <section class="need">
+    As a <%= need.role %><br>
+    I need to <%= need.goal %><br>
+    So that <%= need.benefit %>
+  </section>
+
+  <dl>
+    <dt>Organisations</dt>
+    <dd><%= humanise_organisation_ids need.organisation_ids %></dd>
+    <dt>Impact</dt>
+    <dd><%= need.impact %></dd>
+    <dt>Met when</dt>
+    <dd><%= need.met_when %></dd>
+  </dl>
+
+  <section class="score">
+    <dl>
+      <dt>Positive ratings</dt>
+      <dd><%= need.positive_rating_count %></dd>
+      <dt>Neutral ratings</dt>
+      <dd><%= need.neutral_rating_count %></dd>
+      <dt>Negative ratings</dt>
+      <dd><%= need.negative_rating_count %></dd>
+      <dt>Percentage score</dt>
+      <dd><%= format_percentage_score need.percentage_score %></dd>
+    </dl>
+  </section>
+
+  <section class="actions">
+    <%= button_to "Looks good", review_need_path(need), name: 'opinion', class: 'positive' %>
+    <%= button_to "Not sure", review_need_path(need), name: 'opinion', class: 'neutral' %>
+    <%= button_to "Needs work", review_need_path(need), name: 'opinion', class: 'negative' %>
+    <%= button_to "Skip", next_needs_path, class: 'skip' %>
+  </section>
+</article>

@@ -1,0 +1,34 @@
+<h1>All needs</h1>
+
+<%= form_tag results_needs_path, class: 'filter', method: :get do %>
+  <%= label_tag do %>
+    Minimum reviews:
+    <%= select_tag "min", options_for_select([["any", ""], ["1", "1"], ["5", "5"], ["10", "10"]], params[:min]) %>
+  <% end %>
+  <%= submit_tag "Filter", name: nil %>
+<% end %>
+
+<table>
+  <thead>
+    <th>Need ID</th>
+    <th>Goal</th>
+    <th>Score</th>
+    <th class="positive">+</th>
+    <th class="neutral">=</th>
+    <th class="negative">-</th>
+    <th>Total</th>
+  </thead>
+  <tbody>
+    <% needs_in_order.each do |need| %>
+    <tr>
+      <td><%= need.need_api_id %></td>
+      <td><%= truncate(need.goal, length: 100) %></td>
+      <td><%= format_percentage_score need.percentage_score %></td>
+      <td><%= need.positive_rating_count %></td>
+      <td><%= need.neutral_rating_count %></td>
+      <td><%= need.negative_rating_count %></td>
+      <td><%= need.total_rating_count %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
